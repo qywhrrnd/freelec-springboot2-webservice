@@ -15,5 +15,4 @@ public class TopDto {
     private String name;
     private String artist;
     private String lylic;
-
 }
