@@ -1,7 +1,7 @@
-package com.jojoldu.book.crowlingservice;
+package com.jojoldu.book.service;
 
 
-import com.jojoldu.book.crowling.TopStats;
+import com.jojoldu.book.dto.TopDto;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TopService {
@@ -18,8 +20,10 @@ public class TopService {
     private static String MUSIC_NAVER_URL = "https://music.naver.com/listen/top100.nhn?domain=DOMESTIC_V2";
 
     @PostConstruct
-    public void getMusicNaver() throws IOException {
+    public List<TopDto> getMusicNaver() throws IOException {
 
+
+        List<TopDto> topList = new ArrayList<>();
         Document doc = Jsoup.connect(MUSIC_NAVER_URL).get();
         Elements contents = doc.select("table tbody tr._tracklist_move");
 
@@ -27,7 +31,7 @@ public class TopService {
 
 
 
-            TopStats topStats = TopStats.builder()
+            TopDto topStats = TopDto.builder()
 
                     .num(tdContents.select("td.ranking").text())
                     .change(tdContents.select("td.change").text())
@@ -36,10 +40,11 @@ public class TopService {
                     .lylic(tdContents.select("td.ico._lyric lyric").text())
                     .build();
 
+            System.out.println(topStats.toString());
 
-
-            System.out.println(topStats);
+            topList.add(topStats);
         }
+        return topList;
     }
 }
 

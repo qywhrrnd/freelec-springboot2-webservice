@@ -1,4 +1,4 @@
-package com.jojoldu.book.crowling;
+package com.jojoldu.book.dto;
 
 
 import lombok.Builder;
@@ -8,7 +8,7 @@ import lombok.ToString;
 @ToString
 @Builder
 @Getter
-public class TopStats {
+public class TopDto {
 
     private String num;
     private String change;
