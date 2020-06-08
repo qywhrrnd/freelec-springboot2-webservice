@@ -29,15 +29,13 @@ public class BaladService {
 
         for (Element tdContents : contents) {
 
-
-
             BaladDto baladStats = BaladDto.builder()
 
                     .num(tdContents.select("td.ranking").text())
                     .change(tdContents.select("td.change").text())
                     .name(tdContents.select("td.name").text())
                     .artist(tdContents.select("td._artist.artist").text())
-                    .lylic(tdContents.select("td.ico._lyric lyric").text())
+                    .lyric(tdContents.select("td.ico._lyric lyric").text())
                     .build();
 
             System.out.println(baladStats.toString());

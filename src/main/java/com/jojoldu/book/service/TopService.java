@@ -1,7 +1,11 @@
 package com.jojoldu.book.service;
 
 
+import com.jojoldu.book.domain.MusicEntity;
+import com.jojoldu.book.domain.MusicRepository;
 import com.jojoldu.book.dto.TopDto;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,35 +18,43 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j //로그 처리
+@RequiredArgsConstructor
 @Service
 public class TopService {
 
     private static String MUSIC_NAVER_URL = "https://music.naver.com/listen/top100.nhn?domain=DOMESTIC_V2";
+    private final MusicRepository musicRepository;
 
-    @PostConstruct
-    public List<TopDto> getMusicNaver() throws IOException {
+//    @PostConstruct
+    public List<MusicEntity> getMusicNaver() throws IOException {
 
-
-        List<TopDto> topList = new ArrayList<>();
+        List<MusicEntity> topList = new ArrayList<MusicEntity>();
         Document doc = Jsoup.connect(MUSIC_NAVER_URL).get();
         Elements contents = doc.select("table tbody tr._tracklist_move");
 
+        int i = 1;
         for (Element tdContents : contents) {
 
-
-
-            TopDto topStats = TopDto.builder()
-
+            MusicEntity musicEntity = MusicEntity.builder()
                     .num(tdContents.select("td.ranking").text())
                     .change(tdContents.select("td.change").text())
                     .name(tdContents.select("td.name").text())
                     .artist(tdContents.select("td._artist.artist").text())
-                    .lylic(tdContents.select("td.ico._lyric lyric").text())
+                    .lyric(tdContents.select("td.ico._lyric lyric").text())
                     .build();
+            musicRepository.save(musicEntity);
+            topList.add(musicEntity);
 
-            System.out.println(topStats.toString());
-
-            topList.add(topStats);
+            log.info("---------------------------");
+            log.info(i+"번째 노래 크롤링 시작");
+            log.info("순위"+tdContents.select("td.ranking").text());
+            log.info("순위 변동값"+tdContents.select("td.change").text());
+            log.info("제목"+tdContents.select("td.name").text());
+            log.info("가수"+tdContents.select("td._artist.artist").text());
+            log.info("가사"+tdContents.select("td.ico._lyric lyric").text());
+            log.info("---------------------------");
+            i++;
         }
         return topList;
     }

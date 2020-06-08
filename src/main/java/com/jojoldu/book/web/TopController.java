@@ -1,6 +1,7 @@
 package com.jojoldu.book.web;
 
 
+import com.jojoldu.book.domain.MusicEntity;
 import com.jojoldu.book.dto.TopDto;
 import com.jojoldu.book.service.TopService;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +21,18 @@ public class TopController {
     @GetMapping("/top")
     public String top(Model model) throws IOException {
 
-        List<TopDto> topDtoList = topService.getMusicNaver();
+        List<MusicEntity> topDtoList = topService.getMusicNaver();
 
         model.addAttribute("topDto", topDtoList);
 
         return "top";
+    }
+
+    @GetMapping("/test")
+    public String test(Model model) throws IOException {
+        List<MusicEntity> musicEntityList = topService.getMusicNaver();
+        model.addAttribute("musicList", musicEntityList);
+        return "test";
     }
 
 
