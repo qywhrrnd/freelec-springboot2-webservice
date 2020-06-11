@@ -30,3 +30,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### 구글로그인 ###
+application-oauth.properties
