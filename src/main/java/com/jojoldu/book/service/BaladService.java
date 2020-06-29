@@ -2,7 +2,7 @@
 package com.jojoldu.book.service;
 
 
-import com.jojoldu.book.domain.MusicEntity;
+import com.jojoldu.book.domain.music.MusicEntity;
 import com.jojoldu.book.domain.MusicRepository;
 import com.jojoldu.book.dto.TopDto;
 import lombok.RequiredArgsConstructor;

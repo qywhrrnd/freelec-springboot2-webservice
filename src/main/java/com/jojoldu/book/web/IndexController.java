@@ -37,5 +37,41 @@ public class IndexController {
 
         return "posts-update";
     }
+
+    @GetMapping("/test1")
+    public String test1(Model model, @LoginUser SessionUser user) {
+        model.addAttribute("posts", postsService.findAllDesc());
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
+
+
+        return "test1";
+    }
+
+
+    @GetMapping("/information")
+    public String information(Model model, @LoginUser SessionUser user) {
+        model.addAttribute("posts", postsService.findAllDesc());
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
+
+
+        return "information";
+    }
+
+
+
+    @GetMapping("/musicsearch")
+    public String musicsearch(Model model, @LoginUser SessionUser user) {
+        model.addAttribute("posts", postsService.findAllDesc());
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
+
+
+        return "musicsearch";
+    }
 }
 

@@ -38,5 +38,9 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-oauth2-client')
  	compile('org.springframework.session:spring-session-jdbc')
 	compile("org.mariadb.jdbc:mariadb-java-client")
+	// spring-data-redis
+	compile('org.springframework.boot:spring-boot-starter-data-redis')
+	//embedded-redis
+	compile group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
 }
 

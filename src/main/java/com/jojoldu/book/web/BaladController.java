@@ -2,7 +2,7 @@
 package com.jojoldu.book.web;
 
 
-import com.jojoldu.book.domain.MusicEntity;
+import com.jojoldu.book.domain.music.MusicEntity;
 import com.jojoldu.book.dto.TopDto;
 import com.jojoldu.book.service.BaladService;
 import com.jojoldu.book.service.TopService;
